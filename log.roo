@@ -1,0 +1,74 @@
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-06-05 21:29:36
+project --topLevelPackage com.xebia.wartelist --projectName wartelist
+mongo setup --databaseName wartelist --host localhost --port 27017
+entity mongo --class ~.domain.OperationType --testAutomatically 
+entity mongo --class ~.domain.Operation --testAutomatically
+entity mongo --class ~.domain.TimeSlot --testAutomatically
+entity mongo --class ~.domain.Hospital --testAutomatically 
+entity mongo --class ~.domain.HospitalEmployee --testAutomatically
+entity mongo --class ~.domain.User --testAutomatically 
+ entity mongo --class ~.domain.Patient --testAutomatically 
+entity mongo --class ~.domain.Doctor --testAutomatically 
+entity mongo --class ~.domain.Notification --testAutomatically 
+focus --class ~.domain.OperationType
+field string --fieldName name --notNull 
+focus --class ~.domain.TimeSlot
+field string --fieldName name --notNull 
+field number --type double --fieldName latitude --notNull
+field number --type double --fieldName longitude --notNull
+// [failed] field date --fieldName start --type java.util.Date --notNull
+field date --fieldName startD --type java.util.Date --notNull
+field date --fieldName endD --type java.util.Date --notNull
+focus --class ~.domain.Hospital
+field string --fieldName name --notNull 
+field number --type double --fieldName latitude --notNull
+field number --type double --fieldName longitude --notNull
+focus --class ~.domain.User
+field string --fieldName email --notNull
+field string --fieldName name --notNull 
+focus --class ~.domain.Patient
+field string --fieldName ssn --notNull
+field number --type double --fieldName latitude --notNull
+field number --type double --fieldName longitude --notNull
+focus --class ~.domain.Notification
+field string --fieldName title --notNull
+field string --fieldName message --notNull 
+field date --fieldName createdAt --type java.util.Date --notNull
+field date --fieldName updatedAt --type java.util.Date --notNull
+field boolean --fieldName displayed --notNull
+focus --class ~.domain.TimeSlot
+field reference --fieldName hospital --type ~.domain.Hospital
+field reference --fieldName operationtype --type ~.domain.OperationType
+field set --fieldName operation --type ~.domain.Operation
+focus --class ~.domain.OperationType
+field set --fieldName timeslot --type ~.domain.TimeSlot
+focus --class ~.domain.OperationType
+field set --fieldName timeslot --type ~.domain.TimeSlot --cardinality ONE_TO_MANY --mappedBy isfor
+focus --class ~.domain.Hospital
+field set --fieldName timeslot --type ~.domain.TimeSlot --cardinality ONE_TO_MANY --mappedBy provides
+field set --fieldName hospitalemployee --type ~.domain.HospitalEmployee --cardinality ONE_TO_MANY --mappedBy worksat
+focus --class ~.domain.TimeSlot
+field set --fieldName operation --type ~.domain.Operation --cardinality ONE_TO_ONE
+focus --class ~.domain.OperationType
+field set --fieldName operation --type ~.domain.Operation --cardinality ONE_TO_ONE
+focus --class ~.domain.TimeSlot
+field reference --fieldName operation --type ~.domain.Operation --cardinality ONE_TO_ONE 
+focus --class ~.domain.OperationType
+field set --fieldName operation --type ~.domain.Operation --cardinality ONE_TO_MANY
+focus --class ~.domain.Operation
+field reference --fieldName timeslot --type ~.domain.TimeSlot --cardinality ONE_TO_ONE
+field reference --fieldName patient  --type ~.domain.Patient
+field reference --fieldName doctor  --type ~.domain.Doctor
+field reference --fieldName operationtype --type ~.domain.OperationType
+focus --class ~.domain.Doctor
+field set --fieldName operation --type ~.domain.Operation --cardinality ONE_TO_MANY --mappedBy reserves
+focus --class ~.domain.User
+field set --fieldName notification --type ~.domain.Notification --cardinality ONE_TO_MANY 
+focus --class ~.domain.Notification
+// [failed] field reference --fieldName user --type ~.domain.User
+field reference --fieldName user1 --type ~.domain.User
+focus --class ~.domain.User
+focus --class ~.domain.HospitalEmployee
+field reference --fieldName hospital --type ~.domain.Hospital
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-06-07 17:13:59
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-06-07 17:16:07
